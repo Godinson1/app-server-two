@@ -21,7 +21,7 @@ const deletePost = (data: string): void => {
 
 /*
  * NAME - createPost
- * AIM - Delete single post
+ * AIM - Create new post
  */
 const createPost = (data: IPost): void => {
   //Save data to database
