@@ -109,21 +109,38 @@ const editPost = async (data: IPost) => {
 /*
  * NAME - likePost
  * REQUEST METHOD - GET
- * AIM - Like existing post
+ * AIM - Like existing post in main server and admin server
  */
 const likePost = async (req: Request, res: Response): Promise<Response> => {
   try {
-    //Send internal request to app server one.
-    const data = await axios.get(
-      `http://localhost:5000/posts/post/${req.params.id}/like`
+    //Update data
+    const result = await Post.query(
+      `UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING *`,
+      [req.params.id]
     );
+
+    if (result.rowCount === 0)
+      return handleResponse(res, error, NOT_FOUND, "Post not found!");
+
+    //Send internal request to app server one.
+    await axios.get(
+      `http://localhost:5000/posts/post/${result.rows[0].admin_id}/like`
+    );
+
     return res.status(OK).json({
       status: success,
       message: "Post liked successfully",
-      data: data.data,
+      data: result.rows[0],
     });
   } catch (err) {
     console.log(err);
+    if (err.response.status === NOT_FOUND)
+      return handleResponse(
+        res,
+        error,
+        NOT_FOUND,
+        "Post liked successfully but not found in admin server!"
+      );
     return handleResponse(
       res,
       error,
@@ -133,4 +150,55 @@ const likePost = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
-export { createPost, likePost, editPost, deletePost, getAllPost, getPost };
+/*
+ * NAME - likePost
+ * REQUEST METHOD - GET
+ * AIM - Like existing post in main server and admin server
+ */
+const unlikePost = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    //Update data
+    const result = await Post.query(
+      `UPDATE posts SET likes = likes - 1 WHERE id = $1 RETURNING *`,
+      [req.params.id]
+    );
+
+    if (result.rowCount === 0)
+      return handleResponse(res, error, NOT_FOUND, "Post not found!");
+
+    //Send internal request to app server one.
+    await axios.get(
+      `http://localhost:5000/posts/post/${result.rows[0].admin_id}/like`
+    );
+
+    return res.status(OK).json({
+      status: success,
+      message: "Post unliked successfully",
+      data: result.rows[0],
+    });
+  } catch (err) {
+    console.log(err);
+    if (err.response.status === NOT_FOUND)
+      return handleResponse(
+        res,
+        error,
+        NOT_FOUND,
+        "Post unliked successfully but not found in admin server!"
+      );
+    return handleResponse(
+      res,
+      error,
+      INTERNAL_SERVER_ERROR,
+      "Something went wrong"
+    );
+  }
+};
+export {
+  createPost,
+  likePost,
+  editPost,
+  deletePost,
+  getAllPost,
+  getPost,
+  unlikePost,
+};
