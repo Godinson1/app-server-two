@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import compression from "compression";
 import HttpStatus from "http-status-codes";
 
 import { ResponseError, handleError } from "./Error";
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(compression());
 
 //Define Routes
 app.use("/posts", PostRouter);

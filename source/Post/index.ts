@@ -1,3 +1,10 @@
-import { createPost, editPost, deletePost, likePost } from "./controller";
+import {
+  createPost,
+  editPost,
+  deletePost,
+  likePost,
+  getAllPost,
+  getPost,
+} from "./controller";
 
-export { createPost, editPost, deletePost, likePost };
+export { createPost, editPost, deletePost, likePost, getAllPost, getPost };
