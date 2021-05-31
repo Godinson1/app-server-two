@@ -6,7 +6,7 @@ import { createPost, editPost, deletePost } from "./Post";
 const PORT = process.env.PORT || 4000;
 let myChannel;
 
-pool.connect((err, done) => {
+pool.connect((err: any, done: any) => {
   if (err) throw err;
   console.log("Database connected successfully.");
   amqp.connect(
