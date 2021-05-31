@@ -151,9 +151,9 @@ const likePost = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /*
- * NAME - likePost
+ * NAME - unlikePost
  * REQUEST METHOD - GET
- * AIM - Like existing post in main server and admin server
+ * AIM - Unlike existing post in main server and admin server
  */
 const unlikePost = async (req: Request, res: Response): Promise<Response> => {
   try {
