@@ -8,7 +8,11 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./typings", "./node_modules/@types"]
+    "typeRoots": ["./typings", "./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "amqplib": ["types/amqplib"]
+    }
   },
   "include": ["source/**/*.ts", "source/server.ts", "app.ts"],
   "exclude": ["node_modules", "typings"]
