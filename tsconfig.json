@@ -9,10 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./typings", "./node_modules/@types"],
-    "baseUrl": ".",
-    "paths": {
-      "amqplib": ["types/amqplib"]
-    }
+    "noImplicitAny": false
   },
   "include": ["source/**/*.ts", "source/server.ts", "app.ts"],
   "exclude": ["node_modules", "typings"]
