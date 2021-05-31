@@ -92,7 +92,7 @@ const createPost = async (data: IPost): Promise<any> => {
 
 /*
  * NAME - editPost
- * AIM - Edit existing post
+ * AIM - Update existing post
  */
 const editPost = async (data: IPost) => {
   //Update data in database
