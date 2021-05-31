@@ -166,7 +166,7 @@ const unlikePost = async (req: Request, res: Response): Promise<Response> => {
     if (result.rowCount === 0)
       return handleResponse(res, error, NOT_FOUND, "Post not found!");
 
-    //Send internal request to app server one.
+    //Send internal request to app-server-one.
     await axios.get(
       `http://localhost:5000/posts/post/${result.rows[0].admin_id}/like`
     );
